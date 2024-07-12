@@ -25,10 +25,9 @@ $(function () {
 
 
 
-// ---> category
+// ---> category in side nav
 $("#category").on("click",async function(){
     $(".sideNav").animate({left: -$(".nav-content").outerWidth(),"overflow":"hidden"}, 500)
-    // $(".loader").fadeOut(500)
     await getCategory()
 })
 async function getCategory(){
@@ -36,7 +35,6 @@ async function getCategory(){
     data = await response.json()
 // console.log(data);
     displayCategory(data.categories)
-    // $(".loader").fadeOut(500,load)
   
     }
 let category;
@@ -56,16 +54,36 @@ cartona+=`
         </div>
         `
 rowData.innerHTML=cartona
-
+}
 }
 
-}
-// $(".category-img").on("click",async function(){
-//     // $(".loader").fadeOut(500,load)
-//    await filterCategoryMeal(`${array[i].strCategory}`)
-// })
 async function filterCategoryMeal(category){
     let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
     data = await response.json()
-console.log(data);
+// console.log(data.meals);
+displayMealCategory(data.meals)
     }
+function displayMealCategory(array){
+    let cartona=``
+    for (let i = 0; i < array.length; i++) {
+    cartona+=`
+    <div class="col-md-3">
+                    <div onclick="getMealInstructions('${array[i].idMeal}')" class="pointer position-relative category-img">
+                        <img class="w-100" src='${array[i].strMealThumb}' alt="${array[i].strMeal}" srcset="">
+                        <div class="OverLayerMeal  position-absolute text-black text-center d-flex align-items-center justify-content-center">
+                            <h3 class="fw-medium fs-3 text-center" id="category">${array[i].strMeal}</h3>
+                        </div>
+                    </div>
+            </div>
+            `
+    rowData.innerHTML=cartona
+    
+    }
+    }
+async function getMealInstructions(idMeal){
+    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+    data = await response.json()
+console.log(data);
+}
+
+
