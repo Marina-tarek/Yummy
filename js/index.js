@@ -4,7 +4,7 @@ let rowData=document.getElementById('rowData')
 // ---> loading screen
 $(function () {
     console.log("hello")
-    $(".loader").fadeOut(1000, function () {
+    $(".loader").fadeOut(1000, function load() {
         $(".loading").slideUp(1000, function (e) {
             $('body').css('overflow', 'auto')
             $('.loading').remove()
@@ -28,33 +28,44 @@ $(function () {
 // ---> category
 $("#category").on("click",async function(){
     $(".sideNav").animate({left: -$(".nav-content").outerWidth(),"overflow":"hidden"}, 500)
+    // $(".loader").fadeOut(500)
     await getCategory()
 })
 async function getCategory(){
     let response = await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`)
     data = await response.json()
-console.log(data);
+// console.log(data);
     displayCategory(data.categories)
-    $(".loader").fadeOut(500)
+    // $(".loader").fadeOut(500,load)
+  
     }
+let category;
 function displayCategory(array){
 let cartona=``
 for (let i = 0; i < array.length; i++) {
 cartona+=`
 <div class="col-md-3">
-                <div class="pointer position-relative category-img">
+                <div onclick="filterCategoryMeal('${array[i].strCategory}')" class="pointer position-relative category-img">
                     <img class="w-100" src='${array[i].strCategoryThumb}' alt="${array[i].strCategory}" srcset="">
                     <div class="OverLayerMeal  position-absolute text-black text-center">
-                        <h3 class="fw-medium fs-3 text-center">${array[i].strCategory}</h3>
-                        <p class="short-paragraph" id="category">${array[i].strCategoryDescription.split(" ").slice(0,20).join(" ")}</p>
+                        <h3 class="fw-medium fs-3 text-center" id="category">${array[i].strCategory}</h3>
+                        <p class="short-paragraph" >${array[i].strCategoryDescription.split(" ").slice(0,20).join(" ")}</p>
 
                     </div>
                 </div>
         </div>
-
-`
-
+        `
 rowData.innerHTML=cartona
-}
+
 }
 
+}
+// $(".category-img").on("click",async function(){
+//     // $(".loader").fadeOut(500,load)
+//    await filterCategoryMeal(`${array[i].strCategory}`)
+// })
+async function filterCategoryMeal(category){
+    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+    data = await response.json()
+console.log(data);
+    }
