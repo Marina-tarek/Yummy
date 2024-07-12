@@ -131,7 +131,13 @@ h3 {
 .logo {
     width: 50px;
 }
-
+/*  Search Section */
+#search-section input{
+    background-color: transparent;
+}
+#search-section input::placeholder{
+    color: #6C757D;
+}
 /* category section */
 .category-img {
     overflow: hidden;
@@ -165,4 +171,17 @@ h3 {
 /* Area Section */
 .area-icon{
     font-size: 4rem;
+}
+/* contact section  */
+input{
+    transition: all 0.3s ease;
+}
+.contact{
+    text-align: center;
+}
+.submit{
+    vertical-align: middle;
+}
+.invalid-feedback{
+    padding: 8px;
 }

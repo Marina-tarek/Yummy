@@ -1,6 +1,8 @@
 // "use strict"
 /// <reference types="../@types/jquery" />
 let rowData = document.getElementById('rowData')
+let mainSection=document.getElementById("main-section")
+let searchSection=document.getElementById("search-section")
 // ---> loading screen
 $(function () {
     console.log("hello")
@@ -161,6 +163,8 @@ async function getMealsOfThisArea(local){
 
 // --->ingrediant section
 $("#ingredient").on("click",function(){
+    $(".inner-loading-screen").fadeIn(300)
+    $("#search-section").toggleClass('d-flex d-none ',300)
     getIngrediant()
 })
 async function getIngrediant(){
@@ -194,4 +198,38 @@ async function getMealsIngredient(component){
     displayMealCategory(MealsIngredient.meals)
 }
 
+// ---->Search Seaction
+$("#search").on("click",function(){
+    $("#search-section").toggleClass('d-none d-flex',300)
+    displaySearch()
+})
 
+function displaySearch(){
+    let searchBox=`<div class="col-md-6">
+                        <input type="text" class="form-control rounded-2 text-white" placeholder="Search By Name" id="inputOfName">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control rounded-2 text-white" placeholder="Search By First Letter" maxlength="1" id="inputOfLetter">
+                    </div>`
+                    document.getElementById("rowSearch").innerHTML=searchBox
+
+}
+// $("#inputOfName").on("input",function(e){
+   
+//     // console.log(this.value);
+//     searchByName(this.value)
+// })
+// async function searchByName(name){
+//     let response = await fetch(`www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
+//    let mealName = await response.json()
+// console.log(mealName);
+// }
+
+
+// ------->contact us section
+// $("#contactUs").on("click",function(){
+//     displayContactUs()
+// })
+// function displayContactUs(){
+
+// }

@@ -20,7 +20,9 @@
 
 <body>
     <!-- loading screen -->
-    <div class="loading"><span class="loader"></span></div>
+    <div class="loading">
+        <span class="loader"></span>
+    </div>
 
     <!-- side navbar -->
     <nav class="sideNav position-fixed d-flex top-0 vh-100">
@@ -67,13 +69,53 @@
 
     <main>
         <!-- search section -->
+        <section id="search-section" class="d-none">
+            <div class="container w-75 ">
+                <div class="row py-5 " id="rowSearch" >
+                   
+                </div>
+            </div>
+        </section>
 
-        <!-- inner loading  -->
-        <div class="loading"><span class="loader"></span></div>
+        <!-- inner loading 
+        <div class="innerLoading"><span class="loader"></span></div> -->
         <!-- main section -->
-        <div class="container">
-            <div class="row py-5  g-4" id="rowData">
+        <div class="container" id="main-section">
+            <div class="row py-5  g-3" id="rowData">
+<div class="contact vh-100 d-flex justify-content-center align-items-center">
+    <div class="container w-75">
+        <form action="">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <input type="text" placeholder="Enter Your Name.." class="rounded-2 form-control" id="nameInput">
+                    <p class="invalid-feedback alert alert-danger mt-2">Special characters and numbers not allowed</p>
+                </div>
+                <div class="col-md-6">
+                    <input type="email" placeholder="Enter Your Email.." class="rounded-2 form-control" id="emailInput" >
+                    <p class="invalid-feedback alert alert-danger mt-2">Email not valid *exemple@yyy.zzz</p>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" placeholder="Enter Your Phone.." class="rounded-2 form-control" id="phoneInput">
+                    <p class="invalid-feedback alert alert-danger mt-2">Enter valid Phone Number</p>
+                </div>
+                <div class="col-md-6">
+                    <input type="number" placeholder="Enter Your Age." class="rounded-2 form-control" id="ageInput">
+                    <p class="invalid-feedback alert alert-danger mt-2">Enter valid age</p>
+                </div>
+                <div class="col-md-6">
+                    <input type="password" placeholder="Enter Your Password." class="rounded-2 form-control" id="passwordInput">
+                    <p class="invalid-feedback alert alert-danger mt-2">Enter valid password *Minimum eight characters, at least one letter and one number:*</p>
+                </div>
+                <div class="col-md-6">
+                    <input type="password" placeholder="Repassword" class="rounded-2 form-control" id="repasswordInput">
+                    <p class="invalid-feedback text-start alert alert-danger w-100 mt-2">Enter valid repassword</p>
+                </div>
+                        </div>
+                        <button class="btn btn-outline-danger px-2 mt-3 text-capitalize disabled" id="btnSubmit">submit</button>
+        </form>
 
+    </div>
+</div>
 
 
             </div>
@@ -84,6 +126,7 @@
 
     <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/bootstrap.bundle.js"></script>
+    <script src="js/contactUs.js"></script>
     <script src="js/index.js"></script>
 </body>
 
