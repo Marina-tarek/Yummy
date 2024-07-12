@@ -134,6 +134,7 @@ h3 {
 
 /* category section */
 .category-img {
+    overflow: hidden;
     transition: all 0.3s ease;
 }
 
@@ -160,4 +161,8 @@ h3 {
 .recipes-list li {
     padding: 4px;
     margin: 8px;
+}
+/* Area Section */
+.area-icon{
+    font-size: 4rem;
 }
