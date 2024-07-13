@@ -28,7 +28,7 @@
     <nav class="sideNav position-fixed d-flex top-0 vh-100">
         <div class="nav-content vh-100">
             <div class=" d-flex flex-column justify-content-between vh-100  position-relative p-4">
-                <div class="nav-links ">
+                <div class="nav-links nav-list">
                     <ul class="list-unstyled ">
                         <li class="py-2 pointer" id="search">Search</li>
                         <li class="py-2 pointer" id="category">Categories</li>
@@ -56,7 +56,7 @@
 
         <div class="nav-header px-2 d-flex flex-column justify-content-between text-center px-2 py-4">
             <img src="image/logo.png" alt="Yummy icon" class="logo">
-            <i class="fa-solid fa-bars text-black fs-1 open-close-tap"></i>
+            <i class="fa-solid fa-align-justify text-black fs-1 open-close-tap"></i>
             <div>
                 <i class="fa-solid fa-globe text-black"></i>
                 <i class="fa-solid fa-share-nodes text-black d-block"></i>
@@ -69,20 +69,22 @@
 
     <main>
         <!-- search section -->
-        <section id="search-section" class="d-none">
-            <div class="container w-75 ">
-                <div class="row py-5 " id="rowSearch" >
-                   
-                </div>
+        <section class="container w-75 " id="rowSearch" >
+            <div >
+                
             </div>
         </section>
 
-        <!-- inner loading 
-        <div class="innerLoading"><span class="loader"></span></div> -->
+      <!-- inner loading  -->
+        <!-- <div class="innerLoading"><span class="loader"></span></div> -->
+        <!-- <div class="d-flex justify-content-center align-items-center innerLoading ">
+            <div class="spinner-border position-absolute" role="status">
+            </div>
+          </div> -->
         <!-- main section -->
         <div class="container" id="main-section">
             <div class="row py-5  g-3" id="rowData">
-<div class="contact vh-100 d-flex justify-content-center align-items-center">
+<div class="contact vh-100 d-flex justify-content-center align-items-center d-none">
     <div class="container w-75">
         <form action="">
             <div class="row g-3">

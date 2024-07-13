@@ -36,7 +36,6 @@ h3 {
     align-items: center;
     justify-content: center;
 }
-
 .loader {
     color: #fff;
     font-size: 10px;
@@ -48,6 +47,21 @@ h3 {
     animation: mulShdSpin 1.3s infinite linear;
     transform: translateZ(0);
 }
+.innerLoading{
+    height: 100vh;
+    position: relative;
+    /* top: 0;
+    left: 0;
+    z-index: 99;
+    position:absolute;
+    background-color: transparent;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;    */
+
+}
+
 
 @keyframes mulShdSpin {
 
@@ -119,10 +133,17 @@ h3 {
     background-color: var(--main-bg-color);
     display: none;
 }
-
-/* .nav-links{
+.nav-links ul{
     overflow: hidden;
- } */
+}
+.nav-links li{
+    position: relative;
+    top: 300px;
+    transition: top 0.3s;
+}
+.nav-links li.show{
+    top:0;
+}
 .nav-header {
     background-color: var(--main-color);
 }
@@ -132,10 +153,10 @@ h3 {
     width: 50px;
 }
 /*  Search Section */
-#search-section input{
+#rowSearch input{
     background-color: transparent;
 }
-#search-section input::placeholder{
+#rowSearch input::placeholder{
     color: #6C757D;
 }
 /* category section */
