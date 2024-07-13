@@ -47,12 +47,25 @@ h3 {
     animation: mulShdSpin 1.3s infinite linear;
     transform: translateZ(0);
 }
-.innerLoading{
-    height: 100vh;
+.show{
+  height: 100vh;
+  display: flex;
+  z-index: 999;
+  background-color: red;
+}
+.hidden{
+    display: none;
+    height: 0;
+}
+/*.innerLoading{
+    display: none;
+    height: 100vh; 
     position: relative;
+    z-index: 99;
+    background-color: red;
     /* top: 0;
     left: 0;
-    z-index: 99;
+   
     position:absolute;
     background-color: transparent;
     right: 0;
@@ -60,7 +73,7 @@ h3 {
     align-items: center;
     justify-content: center;    */
 
-}
+
 
 
 @keyframes mulShdSpin {
