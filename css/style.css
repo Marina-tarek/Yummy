@@ -47,11 +47,16 @@ h3 {
     animation: mulShdSpin 1.3s infinite linear;
     transform: translateZ(0);
 }
+/* .spinner-border {
+    width: 5%;
+    height: 5%;
+    aspect-ratio: 1/1;
+} */
 .show{
   height: 100vh;
   display: flex;
-  z-index: 999;
-  background-color: red;
+  z-index: 99;
+  background-color:transparent;
 }
 .hidden{
     display: none;
@@ -59,7 +64,7 @@ h3 {
 }
 /*.innerLoading{
     display: none;
-    height: 100vh; 
+    /* height: 100vh; 
     position: relative;
     z-index: 99;
     background-color: red;

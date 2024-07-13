@@ -5,10 +5,8 @@ let inputOfLetter = document.getElementById("inputOfLetter")
 // ---> loading screen
 $(function () {
     $(".loader").fadeOut(1000, function load() {
-        $(".loading").fadeOut(1000, function (e) {
-            $('body').css('overflow', 'auto',function(){
-                showSpine()
-            })
+        $(".loading").fadeOut(1000, function () {
+            $('body').css('overflow', 'auto')
             // searchByName()
            
         })
@@ -67,8 +65,6 @@ hideSpine()
 }
 let category;
 function displayCategory(array) {
-    $(".innerLoading .spinner-border").fadeIn(2000)
-
     let cartona = ``
     for (let i = 0; i < array.length; i++) {
         cartona += `
@@ -85,9 +81,6 @@ function displayCategory(array) {
         `
         rowData.innerHTML = cartona
     }
-    $(".spinner-border").fadeOut(1000, function load() {
-        $(".innerLoading").animate({ height: 0 })
-    })
 }
 
 async function filterCategoryMeal(category) {
@@ -215,7 +208,7 @@ async function getIngrediant() {
     let response = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?i=list`)
     ingrediantData = await response.json()
     displayIngredient(ingrediantData.meals.slice(0, 20))
-    console.log(ingrediantData.meals.slice(0, 20));
+    // console.log(ingrediantData.meals.slice(0, 20));
     hideSpine()
 }
 
@@ -252,6 +245,7 @@ $("#search").on("click", function () {
 })
 
 function displaySearch() {
+    showSpine()
     let searchBox = `
     <div class="row py-5 ">
         <div class="col-md-6">
@@ -269,8 +263,7 @@ function displaySearch() {
 
 ///------> search by first letter
 async function searchByFirstLtter(letter) {
-    $(".innerLoading .spinner-border").fadeIn(300)
-
+ showSpine()
     if (letter == "") {
         letter = 'a'
     }
@@ -282,22 +275,22 @@ async function searchByFirstLtter(letter) {
     } else {
         rowData.innerHTML = ""
     }
-    $(".spinner-border").fadeOut(300, function load() {
-        $(".innerLoading").animate({ height: 0 })
-    })
+hideSpine()
 }
-function lolo(value) {
 
-    console.log(value);
-
-}
 ///------> search by Meal Name
-async function searchByName(name) {
-    // $(".innerLoading").fadeIn(300)
-    let response = await fetch(`www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
-    let mealName = await response.json()
-    console.log(mealName);
-}
+// async function searchByName(name) {
+//     showSpine()
+//     let response = await fetch(`www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
+//     let list = await response.json()
+//     if(list.meals!=null){
+//         displayMealCategory(list.meals)
+//     }else{
+//         console.log('hello');
+//     }
+ 
+//     hideSpine()
+// }
 
 
 // ------->contact us section
@@ -313,42 +306,31 @@ function displayContactUs(){
                         <form action="">
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <input type="text" placeholder="Enter Your Name.." class="rounded-2 form-control"
-                                        id="nameInput">
-                                    <p class="invalid-feedback alert alert-danger mt-2">Special characters and numbers
-                                        not allowed</p>
+                                    <input type="text" onkeyup="validationName(this.value)"  placeholder="Enter Your Name.." class="rounded-2 form-control" id="nameInput">
+                                    <p class="invalid-feedback alert alert-danger mt-2">Special characters and numbers not allowed</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="email" placeholder="Enter Your Email.." class="rounded-2 form-control"
-                                        id="emailInput">
-                                    <p class="invalid-feedback alert alert-danger mt-2">Email not valid *exemple@yyy.zzz
-                                    </p>
+                                    <input type="email" placeholder="Enter Your Email.."  onkeyup="validationEmail(this.value)" class="rounded-2 form-control" id="emailInput">
+                                    <p class="invalid-feedback alert alert-danger mt-2">Email not valid *exemple@yyy.zzz </p>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" placeholder="Enter Your Phone.." class="rounded-2 form-control"
-                                        id="phoneInput">
+                                    <input type="text" placeholder="Enter Your Phone.." onkeyup="validationPhone(this.value)" class="rounded-2 form-control" id="phoneInput">
                                     <p class="invalid-feedback alert alert-danger mt-2">Enter valid Phone Number</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="number" placeholder="Enter Your Age." class="rounded-2 form-control"
-                                        id="ageInput">
+                                    <input type="number" placeholder="Enter Your Age." onkeyup="validationAge(this.value)" class="rounded-2 form-control" id="ageInput">
                                     <p class="invalid-feedback alert alert-danger mt-2">Enter valid age</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="password" placeholder="Enter Your Password."
-                                        class="rounded-2 form-control" id="passwordInput">
-                                    <p class="invalid-feedback alert alert-danger mt-2">Enter valid password *Minimum
-                                        eight characters, at least one letter and one number:*</p>
+                                    <input type="password" placeholder="Enter Your Password."  onkeyup="validationPassword(this.value)" class="rounded-2 form-control" id="passwordInput">
+                                    <p class="invalid-feedback alert alert-danger mt-2">Enter valid password *Minimum eight characters, at least one letter and one number:*</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="password" placeholder="Repassword" class="rounded-2 form-control"
-                                        id="repasswordInput">
-                                    <p class="invalid-feedback text-start alert alert-danger w-100 mt-2">Enter valid
-                                        repassword</p>
+                                    <input type="password" onkeyup="validationRepassword()" placeholder="Repassword" class="rounded-2 form-control" id="repasswordInput">
+                                    <p class="invalid-feedback text-start alert alert-danger w-100 mt-2">Enter valid repassword</p>
                                 </div>
                             </div>
-                            <button class="btn btn-outline-danger px-2 mt-3 text-capitalize disabled"
-                                id="btnSubmit">submit</button>
+                            <button class="btn btn-outline-danger px-2 mt-3 text-capitalize disabled" id="btnSubmit">submit</button>
                         </form>
 
                     </div>
@@ -356,3 +338,5 @@ function displayContactUs(){
     `
     rowData.innerHTML=form
 }
+
+// ====
