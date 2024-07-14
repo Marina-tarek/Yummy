@@ -7,7 +7,7 @@ $(function () {
     $(".loader").fadeOut(1000, function load() {
         $(".loading").fadeOut(1000, function () {
             $('body').css('overflow', 'auto')
-            // searchByName('Arrabiata')
+            searchByName("")
 
         })
     })
@@ -41,7 +41,6 @@ function hideMenuItems() {
         $(".nav-links li").eq(i).animate({ top: 'toggle' }, (i + 5) * 100)
         $(".nav-links li").removeAttr("style")
     }
-    ;
 }
 //---->check if search bar show or not
 function check() {
@@ -234,6 +233,7 @@ async function getMealsIngredient(component) {
 
 ///------>Search Seaction
 $("#search").on("click", function () {
+    rowData.innerHTML=""
     $("#rowSearch").removeClass('d-none')
     displaySearch()
     $(".nav-content").animate({ width: 'toggle' }, 500)
@@ -276,13 +276,9 @@ async function searchByFirstLtter(letter) {
 ///------> search by Meal Name
 async function searchByName(name) {
     showSpine()
-    let response = await fetch(`www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
+    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
     let list = await response.json()
-    if (list.meals != null) {
-        displayMealCategory(list.meals)
-    } else {
-        console.log('hello');
-    }
+    displayMealCategory(list.meals)
     hideSpine()
 
 }
