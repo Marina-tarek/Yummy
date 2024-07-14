@@ -75,7 +75,6 @@ function validationRepassword(){
 if($("#repasswordInput").val()==$("#passwordInput").val()){
     $("#repasswordInput").addClass("is-valid")
     $("#repasswordInput").removeClass("is-invalid")
-    
     return true
 }else{
     $("#repasswordInput").addClass("is-invalid")
@@ -85,6 +84,7 @@ if($("#repasswordInput").val()==$("#passwordInput").val()){
 
 }
 function submit(){
+
     if(validationName()&&validationEmail()&&validationPhone()&&validationAge()&&validationPassword()&&validationRepassword()){
 $("#btnSubmit").removeClass("disabled")
     }else{
