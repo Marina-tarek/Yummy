@@ -317,7 +317,7 @@ function displayContactUs() {
                                     <p class="invalid-feedback text-start alert alert-danger w-100 mt-2">Enter valid repassword</p>
                                 </div>
                             </div> 
-                           <button class="btn btn-outline-danger px-2 mt-3 text-capitalize disabled" id="btnSubmit">submit</button>
+                           <button disabled  class="btn btn-outline-danger px-2 mt-3 text-capitalize " id="btnSubmit">submit</button>
                            
                     </div>
                 </div>
@@ -352,25 +352,27 @@ function displayContactUs() {
             validPhone = false
            }
     })
-    $("ageInput").on("input", function () {
-
-        console.log("hello");
-        validationAge($("ageInput").val())
-        console.log($("ageInput").val());
-        valid = true
+    $("#ageInput").on("input", function () {
+        if( validationAge($("#ageInput").val())){
+            validAge = true
+           }else{
+            console.log("age"+$("#ageInput").val());
+            validAge = false
+           }
     })
-    $("passwordInput").on("input", function () {
-
-        console.log("hello");
-        validationPassword($("passwordInput").val())
-        console.log($("passwordInput").val());
-        valid = true
+    $("#passwordInput").on("input", function () {
+        if(validationPassword($("#passwordInput").val())){
+            validPassword = ture
+           }else{
+            console.log("password"+$("#passwordInput").val());
+            validPassword = false
+           }
     })
     $("#repasswordInput").on("input", function () {
         if(validationRepassword($("#repasswordInput").val())){
             validRepassword = true
            }else{
-            console.log("phone"+$("#repasswordInput").val());
+            console.log("Repassword"+$("#repasswordInput").val());
             validRepassword = false
            }
     })
@@ -383,8 +385,8 @@ let validAge = false
 let validPassword = false
 let validRepassword = false
 function validation() {
-    if (validName == true&& validEmail == true &&validPhone == true ) {
-      
+    if (validName == true&& validEmail == true &&validPhone == true &&validAge == true&&validPassword == true&&validRepassword ==true) {
+        $("#btnSubmit").removeAttribute("disabled")
     }else{
         console.log("errrro");
     }
@@ -393,16 +395,3 @@ function validation() {
 
 }
 
-// if (validationName()) {
-//     const regexStyle = /^(?:[a-zA-Z\s@,=%$#&_\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){2,20}$/;
-//     if (regexStyle.test($("#nameInput").val())) {
-//         $("#nameInput").addClass("is-valid")
-//         $("#nameInput").removeClass("is-invalid")
-//         return true
-//     } else {
-//         $("#nameInput").addClass("is-invalid")
-//         $("#nameInput").removeClass("is-valid")
-//         return false
-//     }
-
-// }

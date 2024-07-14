@@ -1,25 +1,5 @@
 /// <reference types="../@types/jquery" />
 
-const btnSubmit=document.getElementById("btnSubmit")
-const inputs =document.querySelector("input");
-const formData =document.querySelector('form')
-// let nameInput
-// function validation(){
-//     $("#nameInput").on("input",function(){
-//         nameInput= $("#nameInput").val()
-//         console.log(nameInput);
-//     })
-    
-// }
-// focus
-
-
-// $("#nameInput").validate({
-    
-// })
-
-
-
 function validationName(nameInput) {
     const regexStyle = /^(?:[a-zA-Z\s@,=%$#&_\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){2,20}$/;
     if (regexStyle.test(nameInput)) {
