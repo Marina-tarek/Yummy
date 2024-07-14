@@ -30,7 +30,6 @@ $(".open-close-tap").on("click", function tap() {
         hideMenuItems()
     }
 })
-
 function showMenuItems() {
     for (let i = 0; i < 5; i++) {
         $(".nav-links li").eq(i).animate({ top: 0 }, (i + 5) * 100)
@@ -42,6 +41,11 @@ function hideMenuItems() {
         $(".nav-links li").removeAttr("style")
     }
 }
+//---->function Close Tap automatica when click on any nav-link
+function closeSideNav() {
+    $(".nav-content").animate({ width: 'toggle' }, 500)
+    $(".nav-header>i").toggleClass('fa-align-justify fa-xmark', 500);
+}
 //---->check if search bar show or not
 function check() {
     if (!$("#rowSearch").hasClass('d-none')) {
@@ -52,8 +56,7 @@ function check() {
 $("#category").on("click", function () {
     check()
     getCategory()
-    $(".nav-content").animate({ width: 'toggle' }, 500)
-    $(".nav-header>i").toggleClass('fa-align-justify fa-xmark', 500);
+    closeSideNav()
 })
 async function getCategory() {
     showSpine()
@@ -89,7 +92,7 @@ async function filterCategoryMeal(category) {
     displayMealCategory(data.meals);
     hideSpine()
 }
-///-----control--{Main Fnction}------> displayMealCategory/&/displayMealsOfThisArea /&/displayMealsIngredient
+///-----control--{Main Fnction}------> displayMealCategory/&/displayMealsOfThisArea /&/displayMealsIngredient/&/
 function displayMealCategory(array) {
     let cartona = ``
     for (let i = 0; i < array.length; i++) {
@@ -111,25 +114,22 @@ async function getMealInstructions(idMeal) {
     let response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
     data = await response.json()
     displayMealInstructions(data.meals[0])
-    console.log(typeof(data.meals[0].strTags));
     hideSpine()
 }
 function displayMealInstructions(food) {
-    console.log(food);
-
     let recepies = ''
     for (let i = 1; i < 20; i++) {
         if (food[`strIngredient${i}`]) {
             recepies += ` <i class="alert alert-info m-2 p-1">${food[`strMeasure${i}`]}${food[`strIngredient${i}`]}</i>`
         }
     }
-    let tagsList=``
-     if(food.strTags!=null){
-    let tags=food.strTags.split(",")
-    for (var i = 0; i < tags.length; i++) {
-    tagsList+=` <i class="alert alert-danger m-2 p-1">${tags[i]}</i> `
+    let tagsList = ``
+    if (food.strTags != null) {
+        let tags = food.strTags.split(",")
+        for (var i = 0; i < tags.length; i++) {
+            tagsList += ` <i class="alert alert-danger m-2 p-1">${tags[i]}</i> `
+        }
     }
-     }
 
     let cartoona = `<div class="col-md-4">
     <img src="${food.strMealThumb}" alt="${food.strMeal}" class="w-100 rounded-3 mb-4">
@@ -195,8 +195,7 @@ async function getMealsOfThisArea(local) {
 $("#ingredient").on("click", function () {
     check()
     getIngrediant()
-    $(".nav-content").animate({ width: 'toggle' }, 500)
-    $(".nav-header>i").toggleClass('fa-align-justify fa-xmark', 500);
+    closeSideNav()
 })
 async function getIngrediant() {
     showSpine()
@@ -233,7 +232,7 @@ async function getMealsIngredient(component) {
 
 ///------>Search Seaction
 $("#search").on("click", function () {
-    rowData.innerHTML=""
+    rowData.innerHTML = ""
     $("#rowSearch").removeClass('d-none')
     displaySearch()
     $(".nav-content").animate({ width: 'toggle' }, 500)
@@ -244,7 +243,7 @@ function displaySearch() {
     let searchBox = `
     <div class="row py-5 searchInput">
         <div class="col-md-6">
-          <input type="text"  onkeyup="searchByName(this.value)" class="form-control rounded-2 text-white" placeholder="Search By Name" id="inputOfName">
+          <input type="text"  onkeyup="searchByName(this.value)" class="form-control rounded-2 text-white inputOfName" placeholder="Search By Name" id="inputOfName">
         </div>
         <div class="col-md-6">
             <input type="text"  onkeyup="searchByFirstLtter(value)" class="form-control rounded-2 text-white" placeholder="Search By First Letter" maxlength="1" id="inputOfLetter">
@@ -253,9 +252,6 @@ function displaySearch() {
     document.getElementById("rowSearch").innerHTML = searchBox
 
 }
-// inputOfLetter.on("input",function(){
-//     searchByFirstLtter(value) })
-
 ///------> search by first letter
 async function searchByFirstLtter(letter) {
     showSpine()
@@ -277,8 +273,8 @@ async function searchByFirstLtter(letter) {
 async function searchByName(name) {
     showSpine()
     let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
-    let list = await response.json()
-    displayMealCategory(list.meals)
+    let data = await response.json()
+    displayMealCategory(data.meals)
     hideSpine()
 
 }
@@ -288,46 +284,125 @@ async function searchByName(name) {
 $("#contactUs").on("click", function () {
     check()
     displayContactUs()
-    $(".nav-content").animate({ width: 'toggle' }, 500)
-    $(".nav-header>i").toggleClass('fa-align-justify fa-xmark', 500);
+    closeSideNav()
 })
 function displayContactUs() {
     let form = `
                     <div class="contact vh-100 d-flex justify-content-center align-items-center">
                     <div class="container w-75">
-                        <form action="">
+                      
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <input type="text" onkeyup="validationName(this.value)"  placeholder="Enter Your Name.." class="rounded-2 form-control" id="nameInput">
+                                    <input type="text" onkeyup="validation()"  placeholder="Enter Your Name.." class="rounded-2 form-control" id="nameInput">
                                     <p class="invalid-feedback alert alert-danger mt-2">Special characters and numbers not allowed</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="email" placeholder="Enter Your Email.."  onkeyup="validationEmail(this.value)" class="rounded-2 form-control" id="emailInput">
+                                    <input type="email" onkeyup="validation()" placeholder="Enter Your Email.."  class="rounded-2 form-control" id="emailInput">
                                     <p class="invalid-feedback alert alert-danger mt-2">Email not valid *exemple@yyy.zzz </p>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" placeholder="Enter Your Phone.." onkeyup="validationPhone(this.value)" class="rounded-2 form-control" id="phoneInput">
+                                    <input type="text" placeholder="Enter Your Phone.."onkeyup="validation()" class="rounded-2 form-control" id="phoneInput">
                                     <p class="invalid-feedback alert alert-danger mt-2">Enter valid Phone Number</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="number" placeholder="Enter Your Age." onkeyup="validationAge(this.value)" class="rounded-2 form-control" id="ageInput">
+                                    <input type="number" placeholder="Enter Your Age." onkeyup="validation()" class="rounded-2 form-control" id="ageInput">
                                     <p class="invalid-feedback alert alert-danger mt-2">Enter valid age</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="password" placeholder="Enter Your Password."  onkeyup="validationPassword(this.value)" class="rounded-2 form-control" id="passwordInput">
+                                    <input type="password" placeholder="Enter Your Password." onkeyup="validation()" class="rounded-2 form-control" id="passwordInput">
                                     <p class="invalid-feedback alert alert-danger mt-2">Enter valid password *Minimum eight characters, at least one letter and one number:*</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="password" onkeyup="validationRepassword()" placeholder="Repassword" class="rounded-2 form-control" id="repasswordInput">
+                                    <input type="password" onkeyup="validation()" placeholder="Repassword" class="rounded-2 form-control" id="repasswordInput">
                                     <p class="invalid-feedback text-start alert alert-danger w-100 mt-2">Enter valid repassword</p>
                                 </div>
-                            </div>
-                            <button class="btn btn-outline-danger px-2 mt-3 text-capitalize disabled" id="btnSubmit">submit</button>
-                        </form>
-
+                            </div> 
+                           <button class="btn btn-outline-danger px-2 mt-3 text-capitalize disabled" id="btnSubmit">submit</button>
+                           
                     </div>
                 </div>
     `
     rowData.innerHTML = form
+
+    $("#nameInput").on("input", function () {
+       if( validationName($("#nameInput").val())){
+        validName = true
+       }else{
+        console.log("name"+$("#nameInput").val());
+        validName = false
+       }
+       
+        
+    })
+
+    $("#emailInput").on("input", function () {
+        if(validationEmail($("#emailInput").val())){
+            validEmail = true
+           }else{
+            console.log("email"+$("#emailInput").val());
+            validEmail = false
+           }
+      
+    })
+    $("#phoneInput").on("input", function () {
+        if(validationPhone($("#phoneInput").val())){
+            validPhone = true
+           }else{
+            console.log("phone"+$("#phoneInput").val());
+            validPhone = false
+           }
+    })
+    $("ageInput").on("input", function () {
+
+        console.log("hello");
+        validationAge($("ageInput").val())
+        console.log($("ageInput").val());
+        valid = true
+    })
+    $("passwordInput").on("input", function () {
+
+        console.log("hello");
+        validationPassword($("passwordInput").val())
+        console.log($("passwordInput").val());
+        valid = true
+    })
+    $("#repasswordInput").on("input", function () {
+        if(validationRepassword($("#repasswordInput").val())){
+            validRepassword = true
+           }else{
+            console.log("phone"+$("#repasswordInput").val());
+            validRepassword = false
+           }
+    })
+
+}
+let validName = false
+let validEmail = false
+let validPhone = false
+let validAge = false
+let validPassword = false
+let validRepassword = false
+function validation() {
+    if (validName == true&& validEmail == true &&validPhone == true ) {
+      
+    }else{
+        console.log("errrro");
+    }
+  
+
+
 }
 
+// if (validationName()) {
+//     const regexStyle = /^(?:[a-zA-Z\s@,=%$#&_\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){2,20}$/;
+//     if (regexStyle.test($("#nameInput").val())) {
+//         $("#nameInput").addClass("is-valid")
+//         $("#nameInput").removeClass("is-invalid")
+//         return true
+//     } else {
+//         $("#nameInput").addClass("is-invalid")
+//         $("#nameInput").removeClass("is-valid")
+//         return false
+//     }
+
+// }
