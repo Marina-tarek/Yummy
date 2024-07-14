@@ -1,7 +1,7 @@
 /// <reference types="../@types/jquery" />
+
 let rowData = document.getElementById('rowData')
-let mainSection = document.getElementById("main-section")
-let inputOfLetter = document.getElementById("inputOfLetter")
+
 // ---> loading screen
 $(function () {
     $(".loader").fadeOut(1000, function load() {
@@ -51,6 +51,54 @@ function check() {
     if (!$("#rowSearch").hasClass('d-none')) {
         $("#rowSearch").addClass('d-none')
     }
+}
+///------>Search Seaction
+$("#search").on("click", function () {
+    rowData.innerHTML = ""
+    $("#rowSearch").removeClass('d-none')
+    displaySearch()
+    $(".nav-content").animate({ width: 'toggle' }, 500)
+    $(".nav-header>i").toggleClass('fa-align-justify fa-xmark', 500);
+})
+
+function displaySearch() {
+    let searchBox = `
+    <div class="row py-5 searchInput">
+        <div class="col-md-6">
+          <input type="text"  onkeyup="searchByName(this.value)" class="form-control rounded-2 text-white inputOfName" placeholder="Search By Name" id="inputOfName">
+        </div>
+        <div class="col-md-6">
+            <input type="text"  onkeyup="searchByFirstLtter(value)" class="form-control rounded-2 text-white" placeholder="Search By First Letter" maxlength="1" id="inputOfLetter">
+        </div>
+    </div>`
+    document.getElementById("rowSearch").innerHTML = searchBox
+
+}
+///------> search by first letter
+async function searchByFirstLtter(letter) {
+    showSpine()
+    if (letter == "") {
+        letter = 'a'
+    }
+    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`)
+    let data = await response.json()
+    console.log(data);
+    if (data.meals != null) {
+        displayMealCategory(data.meals)
+    } else {
+        rowData.innerHTML = ""
+    }
+    hideSpine()
+}
+
+///------> search by Meal Name
+async function searchByName(name) {
+    showSpine()
+    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
+    let data = await response.json()
+    displayMealCategory(data.meals)
+    hideSpine()
+
 }
 // ---> category in side nav
 $("#category").on("click", function () {
@@ -159,8 +207,7 @@ ${recepies}
 $("#area").on("click", function () {
     check()
     getArea()
-    $(".nav-content").animate({ width: 'toggle' }, 500)
-    $(".nav-header>i").toggleClass('fa-align-justify fa-xmark', 500);
+  closeSideNav()
 })
 async function getArea() {
     showSpine()
@@ -202,7 +249,6 @@ async function getIngrediant() {
     let response = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?i=list`)
     ingrediantData = await response.json()
     displayIngredient(ingrediantData.meals.slice(0, 20))
-    // console.log(ingrediantData.meals.slice(0, 20));
     hideSpine()
 }
 
@@ -229,56 +275,6 @@ async function getMealsIngredient(component) {
     displayMealCategory(MealsIngredient.meals)
     hideSpine()
 }
-
-///------>Search Seaction
-$("#search").on("click", function () {
-    rowData.innerHTML = ""
-    $("#rowSearch").removeClass('d-none')
-    displaySearch()
-    $(".nav-content").animate({ width: 'toggle' }, 500)
-    $(".nav-header>i").toggleClass('fa-align-justify fa-xmark', 500);
-})
-
-function displaySearch() {
-    let searchBox = `
-    <div class="row py-5 searchInput">
-        <div class="col-md-6">
-          <input type="text"  onkeyup="searchByName(this.value)" class="form-control rounded-2 text-white inputOfName" placeholder="Search By Name" id="inputOfName">
-        </div>
-        <div class="col-md-6">
-            <input type="text"  onkeyup="searchByFirstLtter(value)" class="form-control rounded-2 text-white" placeholder="Search By First Letter" maxlength="1" id="inputOfLetter">
-        </div>
-    </div>`
-    document.getElementById("rowSearch").innerHTML = searchBox
-
-}
-///------> search by first letter
-async function searchByFirstLtter(letter) {
-    showSpine()
-    if (letter == "") {
-        letter = 'a'
-    }
-    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`)
-    let data = await response.json()
-    console.log(data);
-    if (data.meals != null) {
-        displayMealCategory(data.meals)
-    } else {
-        rowData.innerHTML = ""
-    }
-    hideSpine()
-}
-
-///------> search by Meal Name
-async function searchByName(name) {
-    showSpine()
-    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
-    let data = await response.json()
-    displayMealCategory(data.meals)
-    hideSpine()
-
-}
-
 
 // ------->contact us section
 $("#contactUs").on("click", function () {
@@ -310,14 +306,14 @@ function displayContactUs() {
                                 </div>
                                 <div class="col-md-6">
                                     <input type="password" placeholder="Enter Your Password." onkeyup="validation()" class="rounded-2 form-control" id="passwordInput">
-                                    <p class="invalid-feedback alert alert-danger mt-2">Enter valid password *Minimum eight characters, at least one letter and one number:*</p>
+                                    <p class="invalid-feedback alert alert-danger mt-2">Enter valid password *Minimum eight characters, at least one letter and two number:*</p>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="password" onkeyup="validation()" placeholder="Repassword" class="rounded-2 form-control" id="repasswordInput">
                                     <p class="invalid-feedback text-start alert alert-danger w-100 mt-2">Enter valid repassword</p>
                                 </div>
                             </div> 
-                           <button disabled  class="btn btn-outline-danger px-2 mt-3 text-capitalize " id="btnSubmit">submit</button>
+                           <button  class="btn btn-outline-danger px-2 mt-3 text-capitalize " disabled  id="btnSubmit">submit</button>
                            
                     </div>
                 </div>
@@ -325,56 +321,47 @@ function displayContactUs() {
     rowData.innerHTML = form
 
     $("#nameInput").on("input", function () {
-       if( validationName($("#nameInput").val())){
-        validName = true
-       }else{
-        console.log("name"+$("#nameInput").val());
-        validName = false
-       }
-       
-        
+        if (validationName($("#nameInput").val())) {
+            validName = true
+        } else {
+            validName = false
+        }
     })
 
     $("#emailInput").on("input", function () {
-        if(validationEmail($("#emailInput").val())){
+        if (validationEmail($("#emailInput").val())) {
             validEmail = true
-           }else{
-            console.log("email"+$("#emailInput").val());
+        } else {
             validEmail = false
-           }
-      
+        }
     })
     $("#phoneInput").on("input", function () {
-        if(validationPhone($("#phoneInput").val())){
+        if (validationPhone($("#phoneInput").val())) {
             validPhone = true
-           }else{
-            console.log("phone"+$("#phoneInput").val());
+        } else {
             validPhone = false
-           }
+        }
     })
     $("#ageInput").on("input", function () {
-        if( validationAge($("#ageInput").val())){
+        if (validationAge($("#ageInput").val())) {
             validAge = true
-           }else{
-            console.log("age"+$("#ageInput").val());
+        } else {
             validAge = false
-           }
+        }
     })
     $("#passwordInput").on("input", function () {
-        if(validationPassword($("#passwordInput").val())){
-            validPassword = ture
-           }else{
-            console.log("password"+$("#passwordInput").val());
+        if (validationPassword($("#passwordInput").val())) {
+            validPassword = true
+        } else {
             validPassword = false
-           }
+        }
     })
     $("#repasswordInput").on("input", function () {
-        if(validationRepassword($("#repasswordInput").val())){
+        if (validationRepassword($("#repasswordInput").val())) {
             validRepassword = true
-           }else{
-            console.log("Repassword"+$("#repasswordInput").val());
+        } else {
             validRepassword = false
-           }
+        }
     })
 
 }
@@ -385,13 +372,8 @@ let validAge = false
 let validPassword = false
 let validRepassword = false
 function validation() {
-    if (validName == true&& validEmail == true &&validPhone == true &&validAge == true&&validPassword == true&&validRepassword ==true) {
-        $("#btnSubmit").removeAttribute("disabled")
-    }else{
-        console.log("errrro");
-    }
-  
-
-
+    if (validName == true && validEmail == true && validPhone == true && validAge == true && validPassword == true && validRepassword == true) {
+        $("#btnSubmit").removeAttr("disabled")
+    } 
 }
 

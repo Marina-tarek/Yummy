@@ -14,7 +14,7 @@ a {
     color: var(--main-color);
 }
 
-.pointer {
+.pointer,i {
     cursor: pointer;
 }
 
@@ -36,6 +36,7 @@ h3 {
     align-items: center;
     justify-content: center;
 }
+
 .loader {
     color: #fff;
     font-size: 10px;
@@ -47,39 +48,18 @@ h3 {
     animation: mulShdSpin 1.3s infinite linear;
     transform: translateZ(0);
 }
-/* .spinner-border {
-    width: 5%;
-    height: 5%;
-    aspect-ratio: 1/1;
-} */
-.show{
-  height: 100vh;
-  display: flex;
-  z-index: 99;
-  background-color:transparent;
+
+.show {
+    height: 100vh;
+    display: flex;
+    z-index: 99;
+    background-color: transparent;
 }
-.hidden{
+
+.hidden {
     display: none;
     height: 0;
 }
-/*.innerLoading{
-    display: none;
-    /* height: 100vh; 
-    position: relative;
-    z-index: 99;
-    background-color: red;
-    /* top: 0;
-    left: 0;
-   
-    position:absolute;
-    background-color: transparent;
-    right: 0;
-    bottom: 0;
-    align-items: center;
-    justify-content: center;    */
-
-
-
 
 @keyframes mulShdSpin {
 
@@ -151,17 +131,21 @@ h3 {
     background-color: var(--main-bg-color);
     display: none;
 }
-.nav-links ul{
+
+.nav-links ul {
     overflow: hidden;
 }
-.nav-links li{
+
+.nav-links li {
     position: relative;
     top: 300px;
     transition: top 0.3s;
 }
-.nav-links li.show{
-    top:0;
+
+.nav-links li.show {
+    top: 0;
 }
+
 .nav-header {
     background-color: var(--main-color);
 }
@@ -170,13 +154,16 @@ h3 {
 .logo {
     width: 50px;
 }
+
 /*  Search Section */
-#rowSearch input{
+#rowSearch input {
     background-color: transparent;
 }
-#rowSearch input::placeholder{
+
+#rowSearch input::placeholder {
     color: #6C757D;
 }
+
 /* category section */
 .category-img {
     overflow: hidden;
@@ -207,20 +194,26 @@ h3 {
     padding: 4px;
     margin: 8px;
 }
+
 /* Area Section */
-.area-icon{
+.area-icon {
     font-size: 4rem;
 }
+
 /* contact section  */
-input{
+input {
     transition: all 0.3s ease;
 }
-.contact{
+
+.contact {
     text-align: center;
 }
-.submit{
+
+.submit {
     vertical-align: middle;
+    transition: all 0.3s ease;
 }
-.invalid-feedback{
+
+.invalid-feedback {
     padding: 8px;
 }

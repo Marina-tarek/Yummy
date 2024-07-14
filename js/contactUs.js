@@ -1,5 +1,4 @@
 /// <reference types="../@types/jquery" />
-
 function validationName(nameInput) {
     const regexStyle = /^(?:[a-zA-Z\s@,=%$#&_\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){2,20}$/;
     if (regexStyle.test(nameInput)) {
@@ -11,7 +10,6 @@ function validationName(nameInput) {
         $("#nameInput").removeClass("is-valid")
         return false
     }
-   
 }
 
 function validationEmail(email) {
@@ -77,9 +75,5 @@ if($("#repasswordInput").val()==$("#passwordInput").val()){
 }
 
 }
-// function submit(){
-//     if(validationName()&&validationEmail()&&validationPhone()&&validationAge()&&validationPassword()&&validationRepassword()){
-// $("#btnSubmit").removeClass("disabled")
-//     }
-// }
+
 
